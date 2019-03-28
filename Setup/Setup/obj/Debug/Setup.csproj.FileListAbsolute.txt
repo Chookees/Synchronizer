@@ -1,0 +1,7 @@
+C:\Users\arturb\source\repos\Setup\Setup\bin\Debug\Setup.exe.config
+C:\Users\arturb\source\repos\Setup\Setup\bin\Debug\Setup.exe
+C:\Users\arturb\source\repos\Setup\Setup\bin\Debug\Setup.pdb
+C:\Users\arturb\source\repos\Setup\Setup\obj\Debug\Setup.csprojAssemblyReference.cache
+C:\Users\arturb\source\repos\Setup\Setup\obj\Debug\Setup.csproj.CoreCompileInputs.cache
+C:\Users\arturb\source\repos\Setup\Setup\obj\Debug\Setup.exe
+C:\Users\arturb\source\repos\Setup\Setup\obj\Debug\Setup.pdb

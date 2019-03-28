@@ -1,0 +1,7 @@
+C:\Users\arturb\source\repos\Synchronizer\Synchronizer\bin\Debug\Synchronizer.exe.config
+C:\Users\arturb\source\repos\Synchronizer\Synchronizer\bin\Debug\Synchronizer.exe
+C:\Users\arturb\source\repos\Synchronizer\Synchronizer\bin\Debug\Synchronizer.pdb
+C:\Users\arturb\source\repos\Synchronizer\Synchronizer\obj\Debug\Synchronizer.csprojAssemblyReference.cache
+C:\Users\arturb\source\repos\Synchronizer\Synchronizer\obj\Debug\Synchronizer.csproj.CoreCompileInputs.cache
+C:\Users\arturb\source\repos\Synchronizer\Synchronizer\obj\Debug\Synchronizer.exe
+C:\Users\arturb\source\repos\Synchronizer\Synchronizer\obj\Debug\Synchronizer.pdb
