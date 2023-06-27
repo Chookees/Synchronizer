@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Synchronizer")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Artur Zubert")]
 [assembly: AssemblyProduct("Synchronizer")]
 [assembly: AssemblyCopyright("Copyright ©  2023")]
 [assembly: AssemblyTrademark("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("3cdc4f6a-391f-49c6-adbc-3ae06c2435f1")]
+[assembly: Guid("15d3ac8d-7bd3-46ac-a000-07e5eb53de62")]
 
 // Version information for an assembly consists of the following four values:
 //
