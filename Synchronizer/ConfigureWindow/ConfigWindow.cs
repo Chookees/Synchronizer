@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using AZLog;
+using Microsoft.Win32;
 using Dic = AZDictionary.Dictionary;
 using Type = AZLog.Type;
 
@@ -81,16 +82,39 @@ namespace Synchronizer
 
         private void saveBtn_Click(object sender, EventArgs e)
         {
-            Logger.Log(this.Name, "Creating Config File.", Type.Opening);
-            StreamWriter writer = new StreamWriter(Dic.SyncConfigFile);
-            writer.WriteLine("src=" + srcTxtBox.Text + ",");
-            writer.WriteLine("trgt=" + targetTxtBox.Text + ",");
-            writer.Flush();
+            #region Config file
+
+            Logger.Log(this.Name, "Updating Config File.", Type.Opening);
+            StreamWriter writerConf = new StreamWriter(Dic.SyncConfigFile);
+            writerConf.WriteLine("src=" + srcTxtBox.Text + ",");
+            writerConf.WriteLine("trgt=" + targetTxtBox.Text + ",");
+            writerConf.Flush();
             Logger.Log(this.Name, "Saving Config File.", Type.Saving);
-            writer.Close();
+            writerConf.Close();
             Logger.Log(this.Name, "Closing Config File.", Type.Closing);
-            Logger.Log(this.Name, "Showing 'Config is Created' message.");
+            Logger.Log(this.Name, "Showing 'Config is updated' message.");
             MessageBox.Show(StringTable.ConfigConfigIsSaved);
+            writerConf.Close();
+            
+            #endregion
+
+            #region Settings
+
+            Logger.Log(this.Name, "Updating Settings file.", Type.Opening);
+            StreamWriter writerSetting = new StreamWriter(Dic.SyncSettingFile);
+            writerSetting.WriteLine(";startWithWindows=" + startAutoBox.Checked.ToString());
+            writerSetting.WriteLine(";autoStartBackup=" + backupAutoBox.Checked.ToString());
+            //writer.WriteLine(";startWithWindows=" + startAutoBox.Checked.ToString());
+            //writer.WriteLine(";startWithWindows=" + startAutoBox.Checked.ToString());
+            Logger.Log(this.Name, "Saving Setting File.", Type.Saving);
+            writerSetting.Flush();
+            Logger.Log(this.Name, "Closing Setting File.", Type.Closing);
+            Logger.Log(this.Name, "Showing 'Setting is updated' message.");
+            MessageBox.Show(StringTable.ConfigSettingIsSaved);
+            writerSetting.Close();
+
+            #endregion
+
             Logger.Log(this.Name, "Closing Configuration Dialog", Type.Closing);
             this.Close();
         }
@@ -99,6 +123,20 @@ namespace Synchronizer
         {
             Logger.Log(this.Name, "Closing Configuration Dialog", Type.Closing);
             this.Close();
+        }
+
+        private void startAutoBox_CheckedChanged(object sender, EventArgs e)
+        {
+            RegistryKey rk = Registry.CurrentUser.OpenSubKey
+                ("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+            if (startAutoBox.Checked)
+            {
+                rk.SetValue("ContextApplication", Application.ExecutablePath);
+            }
+            else
+            {
+                rk.DeleteValue("ContextApplication", false);
+            }
         }
     }
 }
