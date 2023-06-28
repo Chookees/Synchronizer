@@ -29,6 +29,7 @@ A Backup tool with many functions.
 
 ### 🔜 V0.5.0.0 -> Q4 2023
 - Backup to .zip option
+- Code optimization for faster backups
 - More to be announced
 
 ### 🔜 V0.4.0.0 -> Q4 2023
