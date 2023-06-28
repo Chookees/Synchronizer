@@ -30,19 +30,19 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfigWindow));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.cancelBtn = new System.Windows.Forms.Button();
-            this.saveBtn = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.targetBtn = new System.Windows.Forms.Button();
+            this.srcTxtBox = new System.Windows.Forms.TextBox();
             this.targetTxtBox = new System.Windows.Forms.TextBox();
             this.sourceBtn = new System.Windows.Forms.Button();
-            this.srcTxtBox = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.cancelBtn = new System.Windows.Forms.Button();
+            this.saveBtn = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.startAutoBox = new System.Windows.Forms.CheckBox();
-            this.backupAutoBox = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.backupAutoBox = new System.Windows.Forms.CheckBox();
+            this.startAutoBox = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -61,6 +61,60 @@
             this.groupBox1.TabIndex = 14;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Configuration File";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 25);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(44, 13);
+            this.label4.TabIndex = 15;
+            this.label4.Text = "Source:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 60);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(41, 13);
+            this.label3.TabIndex = 16;
+            this.label3.Text = "Target:";
+            // 
+            // targetBtn
+            // 
+            this.targetBtn.Location = new System.Drawing.Point(321, 56);
+            this.targetBtn.Name = "targetBtn";
+            this.targetBtn.Size = new System.Drawing.Size(35, 20);
+            this.targetBtn.TabIndex = 20;
+            this.targetBtn.Text = "...";
+            this.targetBtn.UseVisualStyleBackColor = true;
+            this.targetBtn.Click += new System.EventHandler(this.OpenFileDialog);
+            // 
+            // srcTxtBox
+            // 
+            this.srcTxtBox.Location = new System.Drawing.Point(52, 22);
+            this.srcTxtBox.Name = "srcTxtBox";
+            this.srcTxtBox.ReadOnly = true;
+            this.srcTxtBox.Size = new System.Drawing.Size(263, 20);
+            this.srcTxtBox.TabIndex = 17;
+            // 
+            // targetTxtBox
+            // 
+            this.targetTxtBox.Location = new System.Drawing.Point(52, 56);
+            this.targetTxtBox.Name = "targetTxtBox";
+            this.targetTxtBox.ReadOnly = true;
+            this.targetTxtBox.Size = new System.Drawing.Size(263, 20);
+            this.targetTxtBox.TabIndex = 19;
+            // 
+            // sourceBtn
+            // 
+            this.sourceBtn.Location = new System.Drawing.Point(321, 22);
+            this.sourceBtn.Name = "sourceBtn";
+            this.sourceBtn.Size = new System.Drawing.Size(35, 20);
+            this.sourceBtn.TabIndex = 18;
+            this.sourceBtn.Text = "...";
+            this.sourceBtn.UseVisualStyleBackColor = true;
+            this.sourceBtn.Click += new System.EventHandler(this.OpenFileDialog);
             // 
             // cancelBtn
             // 
@@ -82,60 +136,6 @@
             this.saveBtn.UseVisualStyleBackColor = true;
             this.saveBtn.Click += new System.EventHandler(this.saveBtn_Click);
             // 
-            // targetBtn
-            // 
-            this.targetBtn.Location = new System.Drawing.Point(321, 56);
-            this.targetBtn.Name = "targetBtn";
-            this.targetBtn.Size = new System.Drawing.Size(35, 20);
-            this.targetBtn.TabIndex = 20;
-            this.targetBtn.Text = "...";
-            this.targetBtn.UseVisualStyleBackColor = true;
-            this.targetBtn.Click += new System.EventHandler(this.OpenFileDialog);
-            // 
-            // targetTxtBox
-            // 
-            this.targetTxtBox.Location = new System.Drawing.Point(52, 56);
-            this.targetTxtBox.Name = "targetTxtBox";
-            this.targetTxtBox.ReadOnly = true;
-            this.targetTxtBox.Size = new System.Drawing.Size(263, 20);
-            this.targetTxtBox.TabIndex = 19;
-            // 
-            // sourceBtn
-            // 
-            this.sourceBtn.Location = new System.Drawing.Point(321, 22);
-            this.sourceBtn.Name = "sourceBtn";
-            this.sourceBtn.Size = new System.Drawing.Size(35, 20);
-            this.sourceBtn.TabIndex = 18;
-            this.sourceBtn.Text = "...";
-            this.sourceBtn.UseVisualStyleBackColor = true;
-            this.sourceBtn.Click += new System.EventHandler(this.OpenFileDialog);
-            // 
-            // srcTxtBox
-            // 
-            this.srcTxtBox.Location = new System.Drawing.Point(52, 22);
-            this.srcTxtBox.Name = "srcTxtBox";
-            this.srcTxtBox.ReadOnly = true;
-            this.srcTxtBox.Size = new System.Drawing.Size(263, 20);
-            this.srcTxtBox.TabIndex = 17;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 60);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(41, 13);
-            this.label3.TabIndex = 16;
-            this.label3.Text = "Target:";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 25);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(44, 13);
-            this.label4.TabIndex = 15;
-            this.label4.Text = "Source:";
-            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.checkBox4);
@@ -149,26 +149,15 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Settings";
             // 
-            // startAutoBox
+            // checkBox4
             // 
-            this.startAutoBox.AutoSize = true;
-            this.startAutoBox.Location = new System.Drawing.Point(9, 20);
-            this.startAutoBox.Name = "startAutoBox";
-            this.startAutoBox.Size = new System.Drawing.Size(140, 17);
-            this.startAutoBox.TabIndex = 0;
-            this.startAutoBox.Text = "Auto start with Windows";
-            this.startAutoBox.UseVisualStyleBackColor = true;
-            this.startAutoBox.CheckedChanged += new System.EventHandler(this.startAutoBox_CheckedChanged);
-            // 
-            // backupAutoBox
-            // 
-            this.backupAutoBox.AutoSize = true;
-            this.backupAutoBox.Location = new System.Drawing.Point(9, 43);
-            this.backupAutoBox.Name = "backupAutoBox";
-            this.backupAutoBox.Size = new System.Drawing.Size(300, 17);
-            this.backupAutoBox.TabIndex = 1;
-            this.backupAutoBox.Text = "Automatically start backup on changes (Work In Progress)";
-            this.backupAutoBox.UseVisualStyleBackColor = true;
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.Location = new System.Drawing.Point(9, 89);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(66, 17);
+            this.checkBox4.TabIndex = 3;
+            this.checkBox4.Text = "<empty>";
+            this.checkBox4.UseVisualStyleBackColor = true;
             // 
             // checkBox3
             // 
@@ -180,15 +169,26 @@
             this.checkBox3.Text = "<empty>";
             this.checkBox3.UseVisualStyleBackColor = true;
             // 
-            // checkBox4
+            // backupAutoBox
             // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(9, 89);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(66, 17);
-            this.checkBox4.TabIndex = 3;
-            this.checkBox4.Text = "<empty>";
-            this.checkBox4.UseVisualStyleBackColor = true;
+            this.backupAutoBox.AutoSize = true;
+            this.backupAutoBox.Location = new System.Drawing.Point(9, 43);
+            this.backupAutoBox.Name = "backupAutoBox";
+            this.backupAutoBox.Size = new System.Drawing.Size(15, 14);
+            this.backupAutoBox.TabIndex = 1;
+            this.backupAutoBox.UseVisualStyleBackColor = true;
+            this.backupAutoBox.Text = "Automatically start backup on changes(Work In Progress)";
+            // 
+            // startAutoBox
+            // 
+            this.startAutoBox.AutoSize = true;
+            this.startAutoBox.Location = new System.Drawing.Point(9, 20);
+            this.startAutoBox.Name = "startAutoBox";
+            this.startAutoBox.Size = new System.Drawing.Size(140, 17);
+            this.startAutoBox.TabIndex = 0;
+            this.startAutoBox.Text = "Auto start with Windows";
+            this.startAutoBox.UseVisualStyleBackColor = true;
+            this.startAutoBox.CheckedChanged += new System.EventHandler(this.startAutoBox_CheckedChanged);
             // 
             // ConfigWindow
             // 

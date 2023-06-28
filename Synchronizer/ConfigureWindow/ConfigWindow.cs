@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using AZLog;
@@ -13,43 +12,39 @@ namespace Synchronizer
     {
         public ConfigWindow()
         {
-            Logger.Log(this.Name,"Initializing..", AZLog.Type.Loading);
+            Logger.Log("ConfigWindow.ConfigWindow","Initializing..", AZLog.Type.Loading);
             InitializeComponent();
 
-            Logger.Log(this.Name, "Reading Config file..", AZLog.Type.Loading);
-            StreamReader reader = new StreamReader(Dic.SyncConfigFile);
-            string lineOfConfig = reader.ReadToEnd();
-            string[] linesOfConfig = lineOfConfig.Split(',');
+            this.checkBox3.Visible = false;
+            this.backupAutoBox.Visible = false;
+            this.checkBox4.Visible = false;
 
             // Cleanup strings
-            foreach (string line in linesOfConfig)
+            foreach (string key in Functions.ConfigurationDictionary.Keys)
             {
-                string[] splitted = line.Split('=');
-                if (splitted.Length > 1)
+                if (key == "src")
                 {
-                    if (splitted[0] == "src")
-                    {
-                        this.srcTxtBox.Text = splitted[1];
-                        Logger.Log(this.Name, "Line of ConfigFile: " + splitted[0] + "=" + splitted[1]);
-                    }
-                    else if (splitted[0] == "trgt")
-                    {
-                        this.targetTxtBox.Text = splitted[1];
-                        Logger.Log(this.Name, "Line of ConfigFile: " + splitted[0] + "=" + splitted[1]);
-                    }
-                    else
-                    {
-                        Logger.Log(this.Name, "Empty or Wrong line at Config File", Type.Warning);
-                    }
+                    Functions.ConfigurationDictionary.TryGetValue(key, out string text);
+                    this.srcTxtBox.Text = text;
+                    Logger.Log(this.Name + ".ConfigWindow", "Line of ConfigFile: " + key + "=" + text);
+                }
+                else if (key == "trgt")
+                {
+                    Functions.ConfigurationDictionary.TryGetValue(key, out string text);
+                    this.targetTxtBox.Text = text;
+                    Logger.Log(this.Name + ".ConfigWindow", "Line of ConfigFile: " + key + "=" + text);
+                }
+                else
+                {
+                    Logger.Log(this.Name + ".ConfigWindow", "Empty or Wrong line at Config File", Type.Warning);
                 }
             }
-            Logger.Log(this.Name, "Closing Config file.", AZLog.Type.Closing);
-            reader.Close();
+            Logger.Log("ConfigWindow.ConfigWindow", "Initialization completed.", AZLog.Type.Success);
         }
 
         private void OpenFileDialog(object sender, EventArgs e)
         {
-            Logger.Log(this.Name, "Opening FolderBrowserDialog().", AZLog.Type.Opening);
+            Logger.Log(this.Name + ".OpenFileDialog", "Opening FolderBrowserDialog().", AZLog.Type.Opening);
             FolderBrowserDialog folderBrowser = new FolderBrowserDialog()
             {
                 Description = StringTable.SetupFolderBrowserDescription,
@@ -66,33 +61,32 @@ namespace Synchronizer
             {
                 case ("sourceBtn"):
                     srcTxtBox.Text = path;
-                    Logger.Log(this.Name, "sourceBtn clicked.");
+                    Logger.Log(this.Name + ".OpenFileDialog", "sourceBtn clicked.");
                     break;
                 case ("targetBtn"):
                     targetTxtBox.Text = path;
-                    Logger.Log(this.Name, "targetBtn clicked.");
+                    Logger.Log(this.Name + ".OpenFileDialog", "targetBtn clicked.");
                     break;
                 default:
-                    Logger.Log(this.Name, "Default triggered, something went wrong.", AZLog.Type.Warning);
+                    Logger.Log(this.Name + ".OpenFileDialog", "Default triggered, something went wrong.", AZLog.Type.Warning);
                     break;
             }
 
-            Logger.Log(this.Name, "Closing FolderBrowserDialog().", AZLog.Type.Closing);
+            Logger.Log(this.Name + ".OpenFileDialog", "Closing FolderBrowserDialog().", AZLog.Type.Closing);
         }
 
         private void saveBtn_Click(object sender, EventArgs e)
         {
             #region Config file
 
-            Logger.Log(this.Name, "Updating Config File.", Type.Opening);
+            Logger.Log(this.Name + ".saveBtn_Click", "Updating Config File.", Type.Opening);
             StreamWriter writerConf = new StreamWriter(Dic.SyncConfigFile);
-            writerConf.WriteLine("src=" + srcTxtBox.Text + ",");
-            writerConf.WriteLine("trgt=" + targetTxtBox.Text + ",");
+            writerConf.WriteLine("src=" + srcTxtBox.Text + ","+ "trgt=" + targetTxtBox.Text + ",");
             writerConf.Flush();
-            Logger.Log(this.Name, "Saving Config File.", Type.Saving);
+            Logger.Log(this.Name + ".saveBtn_Click", "Saving Config File.", Type.Saving);
             writerConf.Close();
-            Logger.Log(this.Name, "Closing Config File.", Type.Closing);
-            Logger.Log(this.Name, "Showing 'Config is updated' message.");
+            Logger.Log(this.Name + ".saveBtn_Click", "Closing Config File.", Type.Closing);
+            Logger.Log(this.Name + ".saveBtn_Click", "Showing 'Config is updated' message.");
             MessageBox.Show(StringTable.ConfigConfigIsSaved);
             writerConf.Close();
             
@@ -100,28 +94,31 @@ namespace Synchronizer
 
             #region Settings
 
-            Logger.Log(this.Name, "Updating Settings file.", Type.Opening);
+            Logger.Log(this.Name + ".saveBtn_Click", "Updating Settings file.", Type.Opening);
             StreamWriter writerSetting = new StreamWriter(Dic.SyncSettingFile);
             writerSetting.WriteLine(";startWithWindows=" + startAutoBox.Checked.ToString());
-            writerSetting.WriteLine(";autoStartBackup=" + backupAutoBox.Checked.ToString());
+            //writerSetting.WriteLine(";autoStartBackup=" + backupAutoBox.Checked.ToString());
             //writer.WriteLine(";startWithWindows=" + startAutoBox.Checked.ToString());
             //writer.WriteLine(";startWithWindows=" + startAutoBox.Checked.ToString());
-            Logger.Log(this.Name, "Saving Setting File.", Type.Saving);
+            Logger.Log(this.Name + ".saveBtn_Click", "Saving Setting File.", Type.Saving);
             writerSetting.Flush();
-            Logger.Log(this.Name, "Closing Setting File.", Type.Closing);
-            Logger.Log(this.Name, "Showing 'Setting is updated' message.");
+            Logger.Log(this.Name + ".saveBtn_Click", "Closing Setting File.", Type.Closing);
+            Logger.Log(this.Name + ".saveBtn_Click", "Showing 'Setting is updated' message.");
             MessageBox.Show(StringTable.ConfigSettingIsSaved);
             writerSetting.Close();
 
             #endregion
 
-            Logger.Log(this.Name, "Closing Configuration Dialog", Type.Closing);
+            Logger.Log(this.Name + ".saveBtn_Click", "Closing Configuration Dialog", Type.Closing);
+
+            Functions.GetConfigStrings();
+
             this.Close();
         }
 
         private void cancelBtn_Click(object sender, EventArgs e)
         {
-            Logger.Log(this.Name, "Closing Configuration Dialog", Type.Closing);
+            Logger.Log(this.Name + ".cancelBtn_Click", "Closing Configuration Dialog", Type.Closing);
             this.Close();
         }
 
@@ -137,6 +134,7 @@ namespace Synchronizer
             {
                 rk.DeleteValue("ContextApplication", false);
             }
+            Logger.Log(this.Name + ".startAutoBox_CheckedChanged", "Automatic start with windows set to: " + startAutoBox.Checked + ".", Type.Saving);
         }
     }
 }

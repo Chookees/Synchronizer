@@ -14,7 +14,6 @@
         public static readonly string ConfigConfigIsSaved = "Configuration file has been saved!";
         public static readonly string ConfigSettingIsSaved = "Setting file has been saved!";
 
-
         #endregion
 
         #region ContextApplication Strings

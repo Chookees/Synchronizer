@@ -17,7 +17,7 @@ namespace Synchronizer
 
         private void OpenFileDialog(object sender, EventArgs e)
         {
-            Log.Log(this.Name, "Opening FolderBrowserDialog().", Type.Opening);
+            Log.Log(this.Name+".OpenFileDialog", "Opening FolderBrowserDialog().", Type.Opening);
             FBD folderBrowser = new FBD()
             {
                 Description = StringTable.SetupFolderBrowserDescription,
@@ -34,31 +34,31 @@ namespace Synchronizer
             {
                 case ("sourceBtn"):
                     srcTxtBox.Text = path;
-                    Log.Log(this.Name, "sourceBtn clicked.");
+                    Log.Log(this.Name+ ".OpenFileDialog", "sourceBtn clicked.");
                     break;
                 case ("targetBtn"):
                     targetTxtBox.Text = path;
-                    Log.Log(this.Name, "targetBtn clicked.");
+                    Log.Log(this.Name + ".OpenFileDialog", "targetBtn clicked.");
                     break;
                 default:
-                    Log.Log(this.Name, "Default triggered, something went wrong.", Type.Warning);
+                    Log.Log(this.Name + ".OpenFileDialog", "Default triggered, something went wrong.", Type.Warning);
                     break;
             }
 
-            Log.Log(this.Name, "Closing FolderBrowserDialog().", Type.Closing);
+            Log.Log(this.Name + ".OpenFileDialog", "Closing FolderBrowserDialog().", Type.Closing);
         }
 
         private void continueBtn_Click(object sender, EventArgs e)
         {
-            Log.Log(this.Name, "Creating Config File.", Type.Opening);
+            Log.Log(this.Name+".continueBtn_Click", "Creating Config File.", Type.Opening);
             StreamWriter writer = new StreamWriter(Dic.SyncConfigFile);
             writer.WriteLine("src=" + srcTxtBox.Text+",");
             writer.WriteLine("trgt=" + targetTxtBox.Text+",");
             writer.Flush();
-            Log.Log(this.Name, "Saving Config File.", Type.Saving);
+            Log.Log(this.Name + ".continueBtn_Click", "Saving Config File.", Type.Saving);
             writer.Close();
-            Log.Log(this.Name, "Closing Config File.", Type.Closing);
-            Log.Log(this.Name, "Showing 'Config is Created' message.");
+            Log.Log(this.Name + ".continueBtn_Click", "Closing Config File.", Type.Closing);
+            Log.Log(this.Name + ".continueBtn_Click", "Showing 'Config is Created' message.");
             MessageBox.Show(StringTable.SetupConfigFileIsCreated);
             this.Close();
         }
