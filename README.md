@@ -5,6 +5,11 @@ A Backup tool with many functions.
 ### 2) Version history
 
 ## 1) Roadmap
+Q1 = Jan-Mar
+Q2 = Apr-Jun
+Q3 = Jul-Sep
+Q4 = Oct-Dec
+
 ### 🔜 V1.X.X.X
 - To be announced
 
