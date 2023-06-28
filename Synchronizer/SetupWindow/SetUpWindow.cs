@@ -6,7 +6,7 @@ using Dic = AZDictionary.Dictionary;
 using Log = AZLog.Logger;
 using Type = AZLog.Type;
 
-namespace Synchronizer
+namespace az.Synchronizer
 {
     public partial class SetUpWindow : Form
     {

@@ -1,4 +1,4 @@
-﻿namespace Synchronizer
+﻿namespace az.Synchronizer
 {
     partial class SetUpWindow
     {

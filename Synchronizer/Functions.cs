@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 using Log = AZLog.Logger;
 using Type = AZLog.Type;
 
-namespace Synchronizer
+namespace az.Synchronizer
 {
     public static class Functions
     {

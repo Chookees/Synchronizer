@@ -6,7 +6,7 @@ using Microsoft.Win32;
 using Dic = AZDictionary.Dictionary;
 using Type = AZLog.Type;
 
-namespace Synchronizer
+namespace az.Synchronizer
 {
     public partial class ConfigWindow : Form
     {

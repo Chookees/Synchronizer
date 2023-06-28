@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Synchronizer")]
+[assembly: AssemblyTitle("azSynchronizer")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("AZSoftware (Artur Bobb)")]
-[assembly: AssemblyProduct("Synchronizer")]
+[assembly: AssemblyCompany("AZ (Artur Bobb)")]
+[assembly: AssemblyProduct("az.Synchronizer")]
 [assembly: AssemblyCopyright("Copyright ©  2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

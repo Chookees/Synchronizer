@@ -2,14 +2,12 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
-using Synchronizer.Properties;
 using Log = AZLog.Logger;
 using Dic = AZDictionary.Dictionary;
 using Type = AZLog.Type;
 
-namespace Synchronizer
+namespace az.Synchronizer
 {
     public class ContextApplication:ApplicationContext
     {
