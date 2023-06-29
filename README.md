@@ -42,6 +42,8 @@ A Backup tool with many functions.
 - More settings available in the Configuration Window
   - Notification when destination path is connected (external drive)
   - More to be announced
+- Repo branching (pushes to the master are then prohibited)
+- Releases are provided with following names "Synchronizer <Version>.zip"
 
 ### 🔜 V0.2.0.0 -> Q3 2023
 - First solution for showing progress of the backup to the user
