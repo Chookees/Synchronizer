@@ -13,39 +13,40 @@ A Backup tool with many functions.
 ### 🔜 V1.X.X.X
 - To be announced
 
-### 🔜 V1.0.0.0 
+### 🔜 V1.0.0.0 -> Q4 2024
 - First full release 🥳
 - To be announced
 
-### 🔃 V0.1.6.0 -> Q1 2024
+### 🔃 V0.1.6.0 -> Q3 2024
 - Pre release testing phase
   - Testing on big data
   - Testing on small but many files
   - Testing on Network drives
   - Much more testing...
 
-### 🔜 V0.6.0.0 -> Q1 2024
+### 🔜 V0.6.0.0 -> Q3 2024
 - To be announced
 
-### 🔜 V0.5.0.0 -> Q4 2023
+### 🔜 V0.5.0.0 -> Q2 2024
 - Backup to .zip option
 - Code optimization for faster backups
 - More to be announced
 
-### 🔜 V0.4.0.0 -> Q4 2023
+### 🔜 V0.4.0.0 -> Q1 2024
 - Support of Network drives
-- More to be announced
+- Settings Presets
+- "SupportPackage.zip" creation which collects data for better error analysis
 
-### 🔜 V0.3.0.0 -> Q3 2023
-- Little popup from icon tray for progress on backup
-- More to be announced
-
-### 🔜 V0.2.0.0 -> Q3 2023
+### 🔜 V0.3.0.0 -> Q4 2023
 - More settings available in the Configuration Window
-  - Automatic start of the backup when external drive is connected
+  - Notification when destination path is connected (external drive)
   - More to be announced
 
-### ✅ V0.1.0.0
+### 🔜 V0.2.0.0 -> Q3 2023
+- First solution for showing progress of the backup to the user
+- "Report Issue" function.
+
+### ✅ V0.1.0.0 {45.9GB => 15min and 31sec}
 - Basic functionalities
 
  ## 2) Version history
