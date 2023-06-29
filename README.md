@@ -15,7 +15,7 @@ A Backup tool with many functions.
 
 ### 🔜 V1.0.0.0 -> Q4 2024
 - First full release 🥳
-- To be announced
+- Best way found and implemented of showing progress to the user.
 
 ### 🔃 V0.1.6.0 -> Q3 2024
 - Pre release testing phase
@@ -45,6 +45,9 @@ A Backup tool with many functions.
 ### 🔜 V0.2.0.0 -> Q3 2023
 - First solution for showing progress of the backup to the user
 - "Report Issue" function.
+- .log file archiving of up to 5 logs
+- Bugfixes
+- Code optimization (>15min and 31sec)
 
 ### ✅ V0.1.0.0 {45.9GB => 15min and 31sec}
 - Basic functionalities
