@@ -45,7 +45,7 @@ A Backup tool with many functions.
   - Automatic start of the backup when external drive is connected
   - More to be announced
 
-### ✅ V0.1.0.0
+### ✅ V0.1.0.0 {45.9GB => 15min}
 - Basic functionalities
 
  ## 2) Version history
