@@ -42,7 +42,7 @@ A Backup tool with many functions.
   - More to be announced
 
 ### 🔜 V0.2.0.0 -> Q3 2023
-- Found an elegant way to display progress of the backup
+- First solution for showing progress of the backup to the user
 
 ### ✅ V0.1.0.0 {45.9GB => 15min and 31sec}
 - Basic functionalities
