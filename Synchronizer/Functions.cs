@@ -10,6 +10,16 @@ namespace az.Synchronizer
     public static class Functions
     {
         public static Dictionary<string, string> ConfigurationDictionary = new Dictionary<string, string>();
+        private static List<string> fileTypeList = new List<string>()
+        {
+            "B",  // Byte
+            "KB", // KiloByte
+            "MB", // MegaByte
+            "GB", // GigaByte
+            "TB", // TerraByte
+        };
+
+        public static bool ShowSizeWarning = false;
 
         /// <summary>
         /// Reads the Config File and returns the lines separated in a dictionary.
@@ -71,6 +81,21 @@ namespace az.Synchronizer
             }
 
             return returnValue;
+        }
+
+        public static string GetSizeOfFilesFormatted(double size, int counter)
+        {
+            const double dividerOfSize = 1000;
+
+            // Starts in Byte
+            // Iterates through 
+            while (size/dividerOfSize > 1)
+            {
+                size /= dividerOfSize;
+                counter++;
+            }
+
+            return Math.Round(size,2) + ":" + fileTypeList[counter];
         }
     }
 }

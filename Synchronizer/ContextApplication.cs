@@ -76,58 +76,108 @@ namespace az.Synchronizer
                 Log.Log("ContextApplication.StartBackup", "Calling SynDirectories()", Type.Processing);
                 SyncDirectories(sourceInfo, destinationInfo);
                 Log.Log("ContextApplication.StartBackup", "Synchronization completed.", Type.Success);
-                Log.Log("ContextApplication.StartBackup", filesCopied+" files have been synced.");
 
-                sizeOfFiles = sizeOfFiles / 1000000;
-                sizeOfFiles = Math.Round(sizeOfFiles, 2);
-
-                Log.Log("ContextApplication.StartBackup", sizeOfFiles+ " MB have been synced.");
-                
                 // Reset everything.
-                filesCopied = 0;
+                filesToCopied = 0;
                 sizeOfFiles = 0;
             }
         }
 
-        private int filesCopied = 0;
+        private int filesToCopied = 0;
         private double sizeOfFiles = 0;
 
         private void SyncDirectories(DirectoryInfo srcDir, DirectoryInfo trgtDir)
         {
-            foreach (FileInfo file in srcDir.GetFiles())
+            bool skipOnYes = false;
+
+            Log.Log("ContextApplication.SyncDirectories", "Calculating size and files of Backup");
+            this.GetFileStats(srcDir, trgtDir);
+            Log.Log("ContextApplication.SyncDirectories", "Calculating complete");
+
+            string sizeOfFilesFormatted = Functions.GetSizeOfFilesFormatted(sizeOfFiles, 0);
+
+            string[] splittedSize = sizeOfFilesFormatted.Split(':');
+
+            sizeOfFiles = Convert.ToDouble(splittedSize[0]);
+
+            Log.Log("ContextApplication.SyncDirectories", "Backup size: "+sizeOfFiles + " " + splittedSize[1] + ".");
+            Log.Log("ContextApplication.SyncDirectories", "Files to back up: "+filesToCopied);
+
+            if (sizeOfFiles > 10 && splittedSize[1] == "GB" || splittedSize[1]=="TB")
             {
-                FileInfo trgtFile = new FileInfo(Path.Combine(trgtDir.FullName, file.Name));
+                Log.Log("ContextApplication.SyncDirectories", "Size of backup exceeds the safe limit of 10GB!", Type.Warning);
 
-                // Check if the file exists in the destination directory and if it is older than the source file.
-                if (trgtFile.Exists && trgtFile.LastWriteTime < file.LastWriteTime)
+                if (Functions.ShowSizeWarning)
                 {
-                    Log.Log("File Sync", "old file synced: "+file.Name, Type.Processing);
-
-                    // Overwrite file in destination directory.
-                    File.Copy(file.FullName, trgtFile.FullName, true);
-
-                    sizeOfFiles += file.Length;
-                    filesCopied++;
-                }
-                else if (!trgtFile.Exists)
-                {
-                    Log.Log("File Copy", "File copied: " + file.Name, Type.Processing);
-
-                    // First time copy of file.
-                    File.Copy(file.FullName, trgtFile.FullName, true);
-
-                    sizeOfFiles += file.Length;
-                    filesCopied++;
+                    if (MessageBox.Show("Backup size is "+sizeOfFiles+splittedSize[1]+ ".\nThis exceeds the recommended limit of 10GB. This can lead to a longer than average duration of the backup.\nDo you want to continue?", "Warning", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        skipOnYes = true;
+                        Log.Log("ContextApplication.SyncDirectories", "User clicked {Yes}.", Type.Processing);
+                    }
+                    else
+                    {
+                        Log.Log("ContextApplication.SyncDirectories", "Backup will be skipped. User clicked {No}.",
+                            Type.Processing);
+                    }
                 }
             }
 
-            foreach (DirectoryInfo sourceSubDir in srcDir.GetDirectories())
+            if (!skipOnYes)
             {
-                Log.Log("Recursive Call", "Subfolder detected: "+sourceSubDir.FullName);
+                foreach (FileInfo file in srcDir.GetFiles())
+                {
+                    FileInfo trgtFile = new FileInfo(Path.Combine(trgtDir.FullName, file.Name));
+
+                    // Check if the file exists in the destination directory and if it is older than the source file.
+                    if (trgtFile.Exists && trgtFile.LastWriteTime < file.LastWriteTime)
+                    {
+                        Log.Log("File Sync", "old file synced: " + file.Name, Type.Processing);
+
+                        // Overwrite file in destination directory.
+                        File.Copy(file.FullName, trgtFile.FullName, true);
+                    }
+                    else if (!trgtFile.Exists)
+                    {
+                        Log.Log("File Copy", "File copied: " + file.Name, Type.Processing);
+
+                        // First time copy of file.
+                        File.Copy(file.FullName, trgtFile.FullName, true);
+                    }
+                }
+
+                foreach (DirectoryInfo sourceSubDir in srcDir.GetDirectories())
+                {
+                    Log.Log("Recursive Call", "Subfolder detected: " + sourceSubDir.FullName);
+                    DirectoryInfo targetSubDir = trgtDir.CreateSubdirectory(sourceSubDir.Name);
+                    SyncDirectories(sourceSubDir, targetSubDir);
+                }
+            }
+        }
+
+        private void GetFileStats(DirectoryInfo rootDir, DirectoryInfo trgtDir)
+        {
+            foreach (FileInfo file in rootDir.GetFiles())
+            {
+                FileInfo trgtFile = new FileInfo(Path.Combine(trgtDir.FullName, file.Name));
+                if (trgtFile.Exists && trgtFile.LastWriteTime < file.LastWriteTime)
+                {
+                    sizeOfFiles += file.Length;
+                    filesToCopied++;
+                }
+                else if (!trgtFile.Exists)
+                {
+                    sizeOfFiles += file.Length;
+                    filesToCopied++;
+                }
+            }
+
+            foreach (DirectoryInfo sourceSubDir in rootDir.GetDirectories())
+            {
                 DirectoryInfo targetSubDir = trgtDir.CreateSubdirectory(sourceSubDir.Name);
                 SyncDirectories(sourceSubDir, targetSubDir);
             }
         }
+
 
         private bool DirectoryExistCheck(string path)
         {

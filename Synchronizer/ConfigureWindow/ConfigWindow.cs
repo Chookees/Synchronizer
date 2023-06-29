@@ -16,7 +16,7 @@ namespace az.Synchronizer
             InitializeComponent();
 
             this.checkBox3.Visible = false;
-            this.backupAutoBox.Visible = false;
+            this.settingShowWarning.Visible = false;
             this.checkBox4.Visible = false;
 
             // Cleanup strings
@@ -97,7 +97,7 @@ namespace az.Synchronizer
             Logger.Log(this.Name + ".saveBtn_Click", "Updating Settings file.", Type.Opening);
             StreamWriter writerSetting = new StreamWriter(Dic.SyncSettingFile);
             writerSetting.WriteLine(";startWithWindows=" + startAutoBox.Checked.ToString());
-            //writerSetting.WriteLine(";autoStartBackup=" + backupAutoBox.Checked.ToString());
+            writerSetting.WriteLine(";settingShowWarning=" + settingShowWarning.Checked.ToString());
             //writer.WriteLine(";startWithWindows=" + startAutoBox.Checked.ToString());
             //writer.WriteLine(";startWithWindows=" + startAutoBox.Checked.ToString());
             Logger.Log(this.Name + ".saveBtn_Click", "Saving Setting File.", Type.Saving);
@@ -135,6 +135,20 @@ namespace az.Synchronizer
                 rk.DeleteValue("ContextApplication", false);
             }
             Logger.Log(this.Name + ".startAutoBox_CheckedChanged", "Automatic start with windows set to: " + startAutoBox.Checked + ".", Type.Saving);
+        }
+
+        private void settingShowWarning_CheckedChanged(object sender, EventArgs e)
+        {
+            if (settingShowWarning.Checked)
+            {
+                Functions.ShowSizeWarning = true;
+            }
+            else
+            {
+                Functions.ShowSizeWarning = false;
+            }
+
+            Logger.Log(this.Name + ".settingShowWarning_CheckedChanged", "Show warning when backup size >10GB: " + startAutoBox.Checked + ".", Type.Saving);
         }
     }
 }

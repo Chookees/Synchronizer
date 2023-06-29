@@ -41,7 +41,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.backupAutoBox = new System.Windows.Forms.CheckBox();
+            this.settingShowWarning = new System.Windows.Forms.CheckBox();
             this.startAutoBox = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -140,7 +140,7 @@
             // 
             this.groupBox2.Controls.Add(this.checkBox4);
             this.groupBox2.Controls.Add(this.checkBox3);
-            this.groupBox2.Controls.Add(this.backupAutoBox);
+            this.groupBox2.Controls.Add(this.settingShowWarning);
             this.groupBox2.Controls.Add(this.startAutoBox);
             this.groupBox2.Location = new System.Drawing.Point(12, 121);
             this.groupBox2.Name = "groupBox2";
@@ -169,15 +169,16 @@
             this.checkBox3.Text = "<empty>";
             this.checkBox3.UseVisualStyleBackColor = true;
             // 
-            // backupAutoBox
+            // settingShowWarning
             // 
-            this.backupAutoBox.AutoSize = true;
-            this.backupAutoBox.Location = new System.Drawing.Point(9, 43);
-            this.backupAutoBox.Name = "backupAutoBox";
-            this.backupAutoBox.Size = new System.Drawing.Size(15, 14);
-            this.backupAutoBox.TabIndex = 1;
-            this.backupAutoBox.UseVisualStyleBackColor = true;
-            this.backupAutoBox.Text = "Automatically start backup on changes(Work In Progress)";
+            this.settingShowWarning.AutoSize = true;
+            this.settingShowWarning.Location = new System.Drawing.Point(9, 43);
+            this.settingShowWarning.Name = "settingShowWarning";
+            this.settingShowWarning.Size = new System.Drawing.Size(219, 17);
+            this.settingShowWarning.TabIndex = 1;
+            this.settingShowWarning.Text = "Show a Warning when backup is >10GB";
+            this.settingShowWarning.UseVisualStyleBackColor = true;
+            this.settingShowWarning.CheckedChanged += new System.EventHandler(this.settingShowWarning_CheckedChanged);
             // 
             // startAutoBox
             // 
@@ -226,7 +227,7 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.CheckBox checkBox4;
         private System.Windows.Forms.CheckBox checkBox3;
-        private System.Windows.Forms.CheckBox backupAutoBox;
+        private System.Windows.Forms.CheckBox settingShowWarning;
         private System.Windows.Forms.CheckBox startAutoBox;
     }
 }
