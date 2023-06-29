@@ -1,8 +1,11 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using Microsoft.WindowsAPICodePack.Taskbar;
+using Synchronizer.ProgressWindow;
 using Log = AZLog.Logger;
 using Dic = AZDictionary.Dictionary;
 using Type = AZLog.Type;
@@ -12,14 +15,17 @@ namespace az.Synchronizer
     public class ContextApplication : ApplicationContext
     {
         private NotifyIcon notifyIcon;
-        private int filesToCopied = 0;
+        private int filesToCopy = 0;
         private double sizeOfFiles = 0;
         private double sizeOfFilesInByte = 0;
-        private bool skipOnYes = false;
-        private double onePercentFinished = 0;
+        private bool cancelBackupBecauseOfWarning = false;
+        private double onePercent = 0;
         private double currentStatusOfCopy = 0;
+        private double alreadyCopiedBytes = 0;
 
         private ConfigWindow configWindow;
+        private ProgressWindow progressWindow;
+
 
         public ContextApplication()
         {
@@ -29,6 +35,7 @@ namespace az.Synchronizer
             Functions.ReadSettingsFile();
 
             Log.Log("ContextApplication" + ".ContextApplication", "Initializing ContextApplication.");
+
             // Initialize Tray Icon
             notifyIcon = new NotifyIcon()
             {
@@ -39,11 +46,24 @@ namespace az.Synchronizer
                     new MenuItem("Open Log", OpenLog),
                     new MenuItem("Exit", Exit)
                 }),
-                Visible = true
+                Visible = true,
+                BalloonTipIcon = ToolTipIcon.Info,
+                BalloonTipTitle = "Synchronizer",
+                BalloonTipText = "Backup Tool by AZSoftware",
             };
+
+            notifyIcon.MouseDoubleClick += NotifyIcon_BalloonTipClicked;
+
+            progressWindow = new ProgressWindow();
+            progressWindow.Icon = new Icon("Properties\\sync.ico");
 
             configWindow = new ConfigWindow();
             Log.Log("ContextApplication.ContextApplication", "Initialization complete. Now waiting for events.");
+        }
+
+        private void NotifyIcon_BalloonTipClicked(object sender, EventArgs e)
+        {
+            configWindow.Show();
         }
 
         void StartBackup(object sender, EventArgs e)
@@ -51,7 +71,7 @@ namespace az.Synchronizer
             Log.Log("ContextApplication", "Initiate backup process..", Type.Loading);
 
             bool pathsAreOk = true;
-            skipOnYes = false;
+            cancelBackupBecauseOfWarning = true;
 
             int filesThatChanged = 0;
             int fileDiff = 0;
@@ -90,17 +110,18 @@ namespace az.Synchronizer
                 this.GetFileStats(sourceInfo, destinationInfo);
                 Log.Log("ContextApplication.StartBackup", "Calculating complete");
 
-                string sizeOfFilesFormatted = Functions.GetSizeOfFilesFormatted(sizeOfFiles, 0);
                 sizeOfFilesInByte = sizeOfFiles;
 
-                onePercentFinished = sizeOfFilesInByte / 100;
+                string sizeOfFilesFormatted = Functions.GetSizeOfFilesFormatted(sizeOfFiles, 0);
+
+                onePercent = sizeOfFilesInByte / 100;
 
                 string[] splittedSize = sizeOfFilesFormatted.Split(':');
 
                 sizeOfFiles = Convert.ToDouble(splittedSize[0]);
 
                 Log.Log("ContextApplication.StartBackup", "Backup size: " + sizeOfFiles + " " + splittedSize[1] + ".");
-                Log.Log("ContextApplication.StartBackup", "Files to back up: " + filesToCopied);
+                Log.Log("ContextApplication.StartBackup", "Files to back up: " + filesToCopy);
 
                 if (sizeOfFiles > 10 && splittedSize[1] == "GB" || splittedSize[1] == "TB")
                 {
@@ -110,20 +131,35 @@ namespace az.Synchronizer
                     {
                         if (MessageBox.Show("Backup size is " + sizeOfFiles + splittedSize[1] + ".\nThis exceeds the recommended limit of 10GB. This can lead to a longer than average duration of the backup.\nDo you want to continue?", "Warning", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
-                            skipOnYes = true;
+                            cancelBackupBecauseOfWarning = false;
                             Log.Log("ContextApplication.StartBackup", "Backup starts anyway. User clicked {Yes}.", Type.Processing);
                         }
                         else
                         {
                             Log.Log("ContextApplication.StartBackup", "Backup will be skipped. User clicked {No}.",
                                 Type.Processing);
+                            cancelBackupBecauseOfWarning = true;
                         }
+                    }
+                    else
+                    {
+                        cancelBackupBecauseOfWarning = false;
                     }
                 }
 
-                if (skipOnYes)
+                if (!cancelBackupBecauseOfWarning || !Functions.ShowSizeWarning)
                 {
+                    if (Functions.ShowCurrentStatusProgressWindow)
+                    {
+                        this.progressWindow.Show();
+                    }
                     SyncDirectories(sourceInfo, destinationInfo);
+                    if (Functions.ShowCurrentStatusProgressWindow)
+                    {
+                        this.progressWindow.Close();
+                        this.progressWindow = new ProgressWindow();
+                        progressWindow.Icon = new Icon("Properties\\sync.ico");
+                    }
                 }
             }
 
@@ -132,48 +168,82 @@ namespace az.Synchronizer
             Log.Log("ContextApplication.StartBackup", "Ran for { " + stopWatch.Elapsed.Minutes + "min " + stopWatch.Elapsed.Seconds + "sec }.");
 
             // Reset variables.
-            filesToCopied = 0;
+            filesToCopy = 0;
             sizeOfFiles = 0;
-            skipOnYes = false;
+            cancelBackupBecauseOfWarning = false;
             currentStatusOfCopy = 0;
+            alreadyCopiedBytes = 0;
+
+            // Cleanup everything once finished.
+            System.GC.Collect();
         }
 
         private void SyncDirectories(DirectoryInfo srcDir, DirectoryInfo trgtDir)
         {
-            foreach (FileInfo file in srcDir.GetFiles())
+            // TODO auslagern der prozentberechnungen.
+            try
             {
-                FileInfo trgtFile = new FileInfo(Path.Combine(trgtDir.FullName, file.Name));
-
-                // Check if the file exists in the destination directory and if it is older than the source file.
-                if (trgtFile.Exists && trgtFile.LastWriteTime < file.LastWriteTime)
+                foreach (FileInfo file in srcDir.GetFiles())
                 {
-                    Log.Log("File Sync", "old file synced: " + file.Name + " -Size: " + Functions.GetSizeOfFilesFormatted(file.Length, 0).Replace(":", ""), Type.Processing);
+                    FileInfo trgtFile = new FileInfo(Path.Combine(trgtDir.FullName, file.Name));
 
-                    Log.Log("Current Status of Backup", CalculateProgress(file.Length)+"%");;
-                    // Overwrite file in destination directory.
-                    File.Copy(file.FullName, trgtFile.FullName, true);
+                    // Check if the file exists in the destination directory and if it is older than the source file.
+                    if (trgtFile.Exists && trgtFile.LastWriteTime < file.LastWriteTime)
+                    {
+                        Log.Log("File Sync", "old file synced: " + file.Name + " -Size: " + Functions.GetSizeOfFilesFormatted(file.Length, 0).Replace(":", ""), Type.Processing);
+
+                        Log.Log("Current Status of Backup", (alreadyCopiedBytes / sizeOfFilesInByte) * 100.0 + "%");
+                        Log.Log("Current Status of Backup", alreadyCopiedBytes + " / " + sizeOfFilesInByte);
+
+                        if (Functions.ShowCurrentStatusProgressWindow)
+                        {
+                            TaskbarManager.Instance.SetProgressValue((int)Math.Round((alreadyCopiedBytes / sizeOfFilesInByte) * 100.0, 0), 100);
+                            int currentProgress = (int)Math.Round((alreadyCopiedBytes / sizeOfFilesInByte) * 100.0);
+                            progressWindow.Text = "Progress: " + currentProgress.ToString() + "%";
+                        }
+
+                        // Overwrite file in destination directory.
+                        File.Copy(file.FullName, trgtFile.FullName, true);
+                        alreadyCopiedBytes += file.Length;
+                    }
+                    else if (!trgtFile.Exists)
+                    {
+                        Log.Log("File Copy", "File copied: " + file.Name + " -Size: " + Functions.GetSizeOfFilesFormatted(file.Length, 0).Replace(":", ""), Type.Processing);
+
+                        Log.Log("Current Status of Backup", (alreadyCopiedBytes / sizeOfFilesInByte) * 100.0 + "%");
+                        Log.Log("Current Status of Backup", alreadyCopiedBytes + " / " + sizeOfFilesInByte);
+
+                        if (Functions.ShowCurrentStatusProgressWindow)
+                        {
+                            TaskbarManager.Instance.SetProgressValue((int)Math.Round((alreadyCopiedBytes / sizeOfFilesInByte) * 100.0, 0), 100);
+                            int currentProgress = (int)Math.Round((alreadyCopiedBytes / sizeOfFilesInByte) * 100.0);
+                            progressWindow.Text = "Progress: "+currentProgress.ToString()+"%";
+                        }
+
+                        // First time copy of file.
+                        File.Copy(file.FullName, trgtFile.FullName, true);
+                        alreadyCopiedBytes += file.Length;
+                    }
                 }
-                else if (!trgtFile.Exists)
-                {
-                    Log.Log("File Copy", "File copied: " + file.Name+" -Size: "+Functions.GetSizeOfFilesFormatted(file.Length, 0).Replace(":",""), Type.Processing);
 
-                    Log.Log("Current Status of Backup", CalculateProgress(file.Length) + "%"); ;
-                    // First time copy of file.
-                    File.Copy(file.FullName, trgtFile.FullName, true);
+                foreach (DirectoryInfo sourceSubDir in srcDir.GetDirectories())
+                {
+                    Log.Log("Recursive Call", "Subfolder detected: " + sourceSubDir.FullName);
+                    DirectoryInfo targetSubDir = trgtDir.CreateSubdirectory(sourceSubDir.Name);
+                    SyncDirectories(sourceSubDir, targetSubDir);
                 }
             }
-
-            foreach (DirectoryInfo sourceSubDir in srcDir.GetDirectories())
+            catch (Exception e)
             {
-                Log.Log("Recursive Call", "Subfolder detected: " + sourceSubDir.FullName);
-                DirectoryInfo targetSubDir = trgtDir.CreateSubdirectory(sourceSubDir.Name);
-                SyncDirectories(sourceSubDir, targetSubDir);
+                Log.ExLog(e);
             }
         }
 
-        private double CalculateProgress(double sizeOfFile)
+        private int CalculateProgress(double sizeOfFile)
         {
-            return Math.Round(currentStatusOfCopy += sizeOfFile / onePercentFinished, 0);
+            currentStatusOfCopy += sizeOfFile / onePercent;
+            currentStatusOfCopy = Math.Round(currentStatusOfCopy, 0);
+            return Convert.ToInt32(currentStatusOfCopy);
         }
 
         private void GetFileStats(DirectoryInfo rootDir, DirectoryInfo trgtDir)
@@ -184,12 +254,12 @@ namespace az.Synchronizer
                 if (trgtFile.Exists && trgtFile.LastWriteTime < file.LastWriteTime)
                 {
                     sizeOfFiles += file.Length;
-                    filesToCopied++;
+                    filesToCopy++;
                 }
                 else if (!trgtFile.Exists)
                 {
                     sizeOfFiles += file.Length;
-                    filesToCopied++;
+                    filesToCopy++;
                 }
             }
 

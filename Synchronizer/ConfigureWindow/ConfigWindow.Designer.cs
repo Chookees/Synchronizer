@@ -40,7 +40,7 @@
             this.saveBtn = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.showCurrentProgressAsTooltip = new System.Windows.Forms.CheckBox();
             this.settingShowWarning = new System.Windows.Forms.CheckBox();
             this.startAutoBox = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
@@ -139,7 +139,7 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.checkBox4);
-            this.groupBox2.Controls.Add(this.checkBox3);
+            this.groupBox2.Controls.Add(this.showCurrentProgressAsTooltip);
             this.groupBox2.Controls.Add(this.settingShowWarning);
             this.groupBox2.Controls.Add(this.startAutoBox);
             this.groupBox2.Location = new System.Drawing.Point(12, 121);
@@ -159,15 +159,16 @@
             this.checkBox4.Text = "<empty>";
             this.checkBox4.UseVisualStyleBackColor = true;
             // 
-            // checkBox3
+            // showCurrentProgressAsTooltip
             // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(9, 66);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(66, 17);
-            this.checkBox3.TabIndex = 2;
-            this.checkBox3.Text = "<empty>";
-            this.checkBox3.UseVisualStyleBackColor = true;
+            this.showCurrentProgressAsTooltip.AutoSize = true;
+            this.showCurrentProgressAsTooltip.Location = new System.Drawing.Point(9, 66);
+            this.showCurrentProgressAsTooltip.Name = "showCurrentProgressAsTooltip";
+            this.showCurrentProgressAsTooltip.Size = new System.Drawing.Size(185, 17);
+            this.showCurrentProgressAsTooltip.TabIndex = 2;
+            this.showCurrentProgressAsTooltip.Text = "Show current Progress of Backup";
+            this.showCurrentProgressAsTooltip.UseVisualStyleBackColor = true;
+            this.showCurrentProgressAsTooltip.CheckedChanged += new System.EventHandler(this.showCurrentProgressAsTooltip_CheckedChanged);
             // 
             // settingShowWarning
             // 
@@ -226,7 +227,7 @@
         private System.Windows.Forms.Button saveBtn;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.CheckBox checkBox4;
-        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.CheckBox showCurrentProgressAsTooltip;
         private System.Windows.Forms.CheckBox settingShowWarning;
         private System.Windows.Forms.CheckBox startAutoBox;
     }

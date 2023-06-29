@@ -15,7 +15,6 @@ namespace az.Synchronizer
             Logger.Log("ConfigWindow.ConfigWindow","Initializing..", AZLog.Type.Loading);
             InitializeComponent();
 
-            this.checkBox3.Visible = false;
             this.checkBox4.Visible = false;
 
             // Cleanup strings and fill Config area.
@@ -52,6 +51,11 @@ namespace az.Synchronizer
                 {
                     this.settingShowWarning.Checked = Convert.ToBoolean(value);
                     Logger.Log(this.Name + ".ConfigWindow", "Adding " + Convert.ToBoolean(value) + " To settingShowWarning.", Type.Saving);
+                }
+                else if (key == "showCurrentStatusInBalloonTip")
+                {
+                    this.showCurrentProgressAsTooltip.Checked = Convert.ToBoolean(value);
+                    Logger.Log(this.Name + ".ConfigWindow", "Adding " + Convert.ToBoolean(value) + " To showCurrentStatusInBalloonTip.", Type.Saving);
                 }
             }
 
@@ -114,8 +118,8 @@ namespace az.Synchronizer
             StreamWriter writerSetting = new StreamWriter(Dic.SyncSettingFile);
             writerSetting.WriteLine("startWithWindows=" + startAutoBox.Checked.ToString()+";");
             writerSetting.WriteLine("settingShowWarning=" + settingShowWarning.Checked.ToString()+";");
-            //writer.WriteLine("startWithWindows=" + startAutoBox.Checked.ToString()+";");
-            //writer.WriteLine("startWithWindows=" + startAutoBox.Checked.ToString()+";");
+            writerSetting.WriteLine("showCurrentStatusInBalloonTip=" + showCurrentProgressAsTooltip.Checked.ToString()+";");
+            //writerSetting.WriteLine("startWithWindows=" + startAutoBox.Checked.ToString()+";");
             Logger.Log(this.Name + ".saveBtn_Click", "Saving Setting File.", Type.Saving);
             writerSetting.Flush();
             Logger.Log(this.Name + ".saveBtn_Click", "Closing Setting File.", Type.Closing);
@@ -165,6 +169,20 @@ namespace az.Synchronizer
             }
 
             Logger.Log(this.Name + ".settingShowWarning_CheckedChanged", "Show warning when backup size >10GB: " + settingShowWarning.Checked + ".", Type.Saving);
+        }
+
+        private void showCurrentProgressAsTooltip_CheckedChanged(object sender, EventArgs e)
+        {
+            if (showCurrentProgressAsTooltip.Checked)
+            {
+                Functions.ShowCurrentStatusProgressWindow = true;
+            }
+            else
+            {
+                Functions.ShowCurrentStatusProgressWindow = false;
+            }
+
+            Logger.Log(this.Name + ".showCurrentProgressAsTooltip_CheckedChanged", "Show current progress of backup as tooltip: " + showCurrentProgressAsTooltip.Checked + ".", Type.Saving);
         }
     }
 }
