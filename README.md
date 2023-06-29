@@ -44,7 +44,7 @@ A Backup tool with many functions.
 ### 🔜 V0.2.0.0 -> Q3 2023
 - Found an elegant way to display progress of the backup
 
-### ✅ V0.1.0.0 {45.9GB => 15min}
+### ✅ V0.1.0.0 {45.9GB => 15min and 31sec}
 - Basic functionalities
 
  ## 2) Version history
