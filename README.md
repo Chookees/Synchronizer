@@ -34,7 +34,7 @@ A Backup tool with many functions.
 
 ### 🔜 V0.4.0.0 -> Q4 2023
 - Support of Network drives
-- More to be announced
+- Settings Presets
 
 ### 🔜 V0.3.0.0 -> Q3 2023
 - More settings available in the Configuration Window
@@ -42,7 +42,7 @@ A Backup tool with many functions.
   - More to be announced
 
 ### 🔜 V0.2.0.0 -> Q3 2023
-- Little popup from icon tray for progress on backup
+- Progress Window
 
 ### ✅ V0.1.0.0 {45.9GB => 15min}
 - Basic functionalities
