@@ -15,7 +15,8 @@ A Backup tool with many functions.
 
 ### 🔜 V1.0.0.0 -> Q4 2024
 - First full release 🥳
-- Best way found and implemented of showing progress to the user.
+- Best way found and implemented of showing progress to the user
+- To be announced
 
 ### 🔃 V0.1.6.0 -> Q3 2024
 - Pre release testing phase
