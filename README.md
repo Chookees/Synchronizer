@@ -37,13 +37,12 @@ A Backup tool with many functions.
 - More to be announced
 
 ### 🔜 V0.3.0.0 -> Q3 2023
-- Little popup from icon tray for progress on backup
-- More to be announced
+- More settings available in the Configuration Window
+  - Popup when destination path is connected (external drive)
+  - More to be announced
 
 ### 🔜 V0.2.0.0 -> Q3 2023
-- More settings available in the Configuration Window
-  - Automatic start of the backup when external drive is connected
-  - More to be announced
+- Little popup from icon tray for progress on backup
 
 ### ✅ V0.1.0.0 {45.9GB => 15min}
 - Basic functionalities
