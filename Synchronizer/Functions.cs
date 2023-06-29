@@ -9,7 +9,12 @@ namespace az.Synchronizer
 {
     public static class Functions
     {
+        // Current Config keys are: src, trgt
         public static Dictionary<string, string> ConfigurationDictionary = new Dictionary<string, string>();
+
+        // Current Setting keys are: startWithWindows ,settingShowWarning
+        public static Dictionary<string,string> SettingsDictionary = new Dictionary<string, string>();
+        
         private static List<string> fileTypeList = new List<string>()
         {
             "B",  // Byte
@@ -96,6 +101,18 @@ namespace az.Synchronizer
             }
 
             return Math.Round(size,2) + ":" + fileTypeList[counter];
+        }
+
+        public static void ReadSettingsFile()
+        {
+            string[] splittedSettings = File.ReadAllLines(AZDictionary.Dictionary.SyncSettingFile);
+
+            foreach (string splittedSetting in splittedSettings)
+            {
+                string cleanedsplittedSetting = splittedSetting.Replace(";","");
+                string[] nameValue = cleanedsplittedSetting.Split('=');
+                SettingsDictionary.Add(nameValue[0], nameValue[1]);
+            }
         }
     }
 }

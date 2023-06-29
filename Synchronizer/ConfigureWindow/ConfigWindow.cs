@@ -16,10 +16,9 @@ namespace az.Synchronizer
             InitializeComponent();
 
             this.checkBox3.Visible = false;
-            this.settingShowWarning.Visible = false;
             this.checkBox4.Visible = false;
 
-            // Cleanup strings
+            // Cleanup strings and fill Config area.
             foreach (string key in Functions.ConfigurationDictionary.Keys)
             {
                 if (key == "src")
@@ -39,6 +38,23 @@ namespace az.Synchronizer
                     Logger.Log(this.Name + ".ConfigWindow", "Empty or Wrong line at Config File", Type.Warning);
                 }
             }
+
+            // Fill Settings area.
+            foreach (string key in Functions.SettingsDictionary.Keys)
+            {
+                Functions.SettingsDictionary.TryGetValue(key, out string value);
+                if (key == "startWithWindows")
+                {
+                    this.startAutoBox.Checked = Convert.ToBoolean(value);
+                    Logger.Log(this.Name+".ConfigWindow", "Adding "+ Convert.ToBoolean(value)+ " To startAutoBox.", Type.Saving);
+                }
+                else if (key == "settingShowWarning")
+                {
+                    this.settingShowWarning.Checked = Convert.ToBoolean(value);
+                    Logger.Log(this.Name + ".ConfigWindow", "Adding " + Convert.ToBoolean(value) + " To settingShowWarning.", Type.Saving);
+                }
+            }
+
             Logger.Log("ConfigWindow.ConfigWindow", "Initialization completed.", AZLog.Type.Success);
         }
 
@@ -96,10 +112,10 @@ namespace az.Synchronizer
 
             Logger.Log(this.Name + ".saveBtn_Click", "Updating Settings file.", Type.Opening);
             StreamWriter writerSetting = new StreamWriter(Dic.SyncSettingFile);
-            writerSetting.WriteLine(";startWithWindows=" + startAutoBox.Checked.ToString());
-            writerSetting.WriteLine(";settingShowWarning=" + settingShowWarning.Checked.ToString());
-            //writer.WriteLine(";startWithWindows=" + startAutoBox.Checked.ToString());
-            //writer.WriteLine(";startWithWindows=" + startAutoBox.Checked.ToString());
+            writerSetting.WriteLine("startWithWindows=" + startAutoBox.Checked.ToString()+";");
+            writerSetting.WriteLine("settingShowWarning=" + settingShowWarning.Checked.ToString()+";");
+            //writer.WriteLine("startWithWindows=" + startAutoBox.Checked.ToString()+";");
+            //writer.WriteLine("startWithWindows=" + startAutoBox.Checked.ToString()+";");
             Logger.Log(this.Name + ".saveBtn_Click", "Saving Setting File.", Type.Saving);
             writerSetting.Flush();
             Logger.Log(this.Name + ".saveBtn_Click", "Closing Setting File.", Type.Closing);
@@ -148,7 +164,7 @@ namespace az.Synchronizer
                 Functions.ShowSizeWarning = false;
             }
 
-            Logger.Log(this.Name + ".settingShowWarning_CheckedChanged", "Show warning when backup size >10GB: " + startAutoBox.Checked + ".", Type.Saving);
+            Logger.Log(this.Name + ".settingShowWarning_CheckedChanged", "Show warning when backup size >10GB: " + settingShowWarning.Checked + ".", Type.Saving);
         }
     }
 }
