@@ -47,7 +47,7 @@ A Backup tool with many functions.
 - Repo branching (pushes to the master are then prohibited)
 - Releases are provided with following names "Synchronizer <Version>.zip"
 
-### 🔜 V0.2.0.0 -> Q3 2023
+### ✅ V0.2.0.0 => Benchmark: 45.9GB => 15min 0sec
 - First solution for showing progress of the backup to the user
 - "Report Issue" function.
 - .log file archiving of up to 5 logs
@@ -55,7 +55,7 @@ A Backup tool with many functions.
 - Code optimization (>15min and 31sec)
 - "IssuePackage.zip" creation which collects data for better error analysis
 
-### ✅ V0.1.0.0 {45.9GB => 15min and 31sec}
+### ✅ V0.1.0.0 => Benchmark: 45.9GB => 15min and 31sec
 - Basic functionalities
 
  ## 2) Version history
