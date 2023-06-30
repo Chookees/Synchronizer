@@ -26,7 +26,8 @@ A Backup tool with many functions.
   - Much more testing...
 
 ### 🔜 V0.6.0.0 -> Q3 2024
-- To be announced
+- Mutlithreading backups
+- More to be announced
 
 ### 🔜 V0.5.0.0 -> Q2 2024
 - Backup to .zip option
@@ -41,6 +42,8 @@ A Backup tool with many functions.
 - More settings available in the Configuration Window
   - Notification when destination path is connected (external drive)
   - More to be announced
+
+### 🔜 V0.2.1.0 -> Q3 2023
 - Repo branching (pushes to the master are then prohibited)
 - Releases are provided with following names "Synchronizer <Version>.zip"
 
