@@ -106,6 +106,12 @@ namespace az.Synchronizer
 
         public static void ReadSettingsFile()
         {
+            if (!File.Exists(AZDictionary.Dictionary.SyncSettingFile))
+            {
+                StreamWriter writer = new StreamWriter(AZDictionary.Dictionary.SyncSettingFile, false);
+                writer.Close();
+            }
+
             string[] splittedSettings = File.ReadAllLines(AZDictionary.Dictionary.SyncSettingFile);
 
             foreach (string splittedSetting in splittedSettings)

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.IO.Compression;
+using System.Threading;
 using System.Windows.Forms;
 using Microsoft.WindowsAPICodePack.Taskbar;
 using Synchronizer.ProgressWindow;
@@ -26,31 +27,9 @@ namespace az.Synchronizer
         private ProgressWindow progressWindow;
 
         private List<object> allObjects = new List<object>();
+
         public ContextApplication()
         {
-            allObjects.Add(configWindow);
-            allObjects.Add(progressWindow);
-            allObjects.Add(this);
-            allObjects.Add(notifyIcon);
-
-            DirectoryInfo logDirectory = new DirectoryInfo(Dic.SyncRoot+"archive.log");
-            
-            if (File.Exists(Dic.SyncLogFile))
-            {
-                if (!Directory.Exists(Dic.SyncRoot + "archive.log"))
-                {
-                    Directory.CreateDirectory(Dic.SyncRoot + "archive.log");
-                }
-                
-                File.Copy(Dic.SyncLogFile, Dic.SyncRoot+ "archive.log\\" + DateTime.Today.Day+"-"+DateTime.Today.Month+"-"+DateTime.Today.Year+" log.log", true);
-                File.Delete(Dic.SyncLogFile);
-
-                if (logDirectory.GetFiles().Length > 4)
-                {
-                    ZipFile.CreateFromDirectory(logDirectory.FullName, logDirectory.FullName+"\\" + DateTime.Today.Date +" logs.zip");
-                }
-            }
-
             Initialize();
 
             Functions.GetConfigStrings();
@@ -79,6 +58,11 @@ namespace az.Synchronizer
 
             configWindow = new ConfigWindow();
             Log.Log("ContextApplication.ContextApplication", "Initialization complete. Now waiting for events.");
+
+            allObjects.Add(configWindow);
+            allObjects.Add(progressWindow);
+            allObjects.Add(this);
+            allObjects.Add(notifyIcon);
         }
 
         private void NotifyIcon_BalloonTipClicked(object sender, EventArgs e)
@@ -92,9 +76,6 @@ namespace az.Synchronizer
 
             bool pathsAreOk = true;
             cancelBackupBecauseOfWarning = true;
-
-            int filesThatChanged = 0;
-            int fileDiff = 0;
 
             Stopwatch stopWatch = new Stopwatch();
             allObjects.Add(stopWatch);
@@ -314,6 +295,7 @@ namespace az.Synchronizer
         void Configuration(object sender, EventArgs e)
         {
             Log.Log("ContextApplication" + ".Configuration", "Starting the Configuration page.", Type.Opening);
+            Functions.GetConfigStrings();
             configWindow.Show();
         }
 
@@ -363,12 +345,14 @@ namespace az.Synchronizer
                 }
             }
 
-            Log.CallOnStart(Dic.SyncLogFile);
-
             Log.Log("ContextApplication" + ".Initialize", "Check if Config file exists.");
             if (!File.Exists(Dic.SyncConfigFile))
             {
                 Log.Log("ContextApplication" + ".Initialize", "Config file does not exist.");
+                StreamWriter writer = new StreamWriter(Dic.SyncConfigFile);
+                writer.Close();
+                writer = null;
+
                 SetUpWindow setup = new SetUpWindow();
                 setup.Show();
             }

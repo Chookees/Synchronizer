@@ -12,7 +12,14 @@ namespace az.Synchronizer
     {
         public SetUpWindow()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
+            }
+            catch (Exception e)
+            {
+                Log.ExLog(e);
+            }
         }
 
         private void OpenFileDialog(object sender, EventArgs e)
@@ -50,10 +57,8 @@ namespace az.Synchronizer
 
         private void continueBtn_Click(object sender, EventArgs e)
         {
-            Log.Log(this.Name+".continueBtn_Click", "Creating Config File.", Type.Opening);
             StreamWriter writer = new StreamWriter(Dic.SyncConfigFile);
-            writer.WriteLine("src=" + srcTxtBox.Text+",");
-            writer.WriteLine("trgt=" + targetTxtBox.Text+",");
+            writer.WriteLine("src=" + srcTxtBox.Text+","+ "trgt=" + targetTxtBox.Text + ",");
             writer.Flush();
             Log.Log(this.Name + ".continueBtn_Click", "Saving Config File.", Type.Saving);
             writer.Close();
