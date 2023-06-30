@@ -43,7 +43,7 @@ A Backup tool with many functions.
   - Notification when destination path is connected (external drive)
   - More to be announced
 
-### 🔜 V0.2.1.0 -> Q3 2023
+### ⋙ V0.2.1.0 -> Q3 2023
 - Repo branching (pushes to the master are then prohibited)
 - Releases are provided with following names "Synchronizer <Version>.zip"
 
