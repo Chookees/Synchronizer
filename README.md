@@ -36,7 +36,6 @@ A Backup tool with many functions.
 ### 🔜 V0.4.0.0 -> Q1 2024
 - Support of Network drives
 - Settings Presets
-- "SupportPackage.zip" creation which collects data for better error analysis
 
 ### 🔜 V0.3.0.0 -> Q4 2023
 - More settings available in the Configuration Window
@@ -51,6 +50,7 @@ A Backup tool with many functions.
 - .log file archiving of up to 5 logs
 - Bugfixes
 - Code optimization (>15min and 31sec)
+- "IssuePackage.zip" creation which collects data for better error analysis
 
 ### ✅ V0.1.0.0 {45.9GB => 15min and 31sec}
 - Basic functionalities
