@@ -52,7 +52,7 @@ A Backup tool with many functions.
 - "Report Issue" function.
 - .log file archiving of up to 5 logs
 - Bugfixes
-- Code optimization (>15min and 31sec)
+- Code optimization (>15min and 31sec (V0.1.0.0))
 - "IssuePackage.zip" creation which collects data for better error analysis
 
  ## 2) Version history
