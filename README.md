@@ -45,7 +45,7 @@ A Backup tool with many functions.
 
 ### ⋙ V0.2.1.0 -> Q3 2023
 - Repo branching (pushes to the master are then prohibited)
-- Releases are provided with following names "Synchronizer <Version>.zip"
+- Releases are provided with following names "Synchronizer<Version>.zip"
 
 ### ✅ V0.2.0.0 => Benchmark: 45.9GB => 15min 0sec
 - First solution for showing progress of the backup to the user
