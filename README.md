@@ -10,9 +10,6 @@ A Backup tool with many functions.
 - Q3 = Jul-Sep
 - Q4 = Oct-Dec
 
-### 🔜 V1.X.X.X
-- To be announced
-
 ### 🔜 V1.0.0.0 -> Q4 2024
 - First full release 🥳
 - Best way found and implemented of showing progress to the user
