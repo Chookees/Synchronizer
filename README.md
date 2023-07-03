@@ -41,7 +41,8 @@ A Backup tool with many functions.
 ### 🔜 V0.3.0.0 -> Q4 2023
 - More settings available in the Configuration Window
   - Notification when destination path is connected (external drive)
-  - More to be announced
+  - Auto start backup when a difference between set locations has been found.
+      - Maybe with a popup window asking if it should start?
 
 ### ✅ V0.2.0.0 => Benchmark: 45.9GB => 15min 0sec
 - First solution for showing progress of the backup to the user
