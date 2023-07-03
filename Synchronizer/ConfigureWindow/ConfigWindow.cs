@@ -13,9 +13,8 @@ namespace az.Synchronizer
         public ConfigWindow()
         {
             Logger.Log("ConfigWindow.ConfigWindow","Initializing..", AZLog.Type.Loading);
-            InitializeComponent();
 
-            this.checkBox4.Visible = false;
+            InitializeComponent();
 
             // Cleanup strings and fill Config area.
             foreach (string key in Functions.ConfigurationDictionary.Keys)
@@ -183,6 +182,20 @@ namespace az.Synchronizer
             }
 
             Logger.Log(this.Name + ".showCurrentProgressAsTooltip_CheckedChanged", "Show current progress of backup as tooltip: " + showCurrentProgressAsTooltip.Checked + ".", Type.Saving);
+        }
+
+        private void showWindowOnChanges_CheckedChanged(object sender, EventArgs e)
+        {
+            if (showWindowOnChanges.Checked)
+            {
+                Functions.ShowWindowOnChanges = true;
+            }
+            else
+            {
+                Functions.ShowWindowOnChanges = false;
+            }
+
+            Logger.Log(this.Name + ".showCurrentProgressAsTooltip_CheckedChanged", "Show current progress of backup as tooltip: " + showWindowOnChanges.Checked + ".", Type.Saving);
         }
     }
 }

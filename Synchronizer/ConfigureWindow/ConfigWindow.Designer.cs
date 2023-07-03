@@ -39,7 +39,7 @@
             this.cancelBtn = new System.Windows.Forms.Button();
             this.saveBtn = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.showWindowOnChanges = new System.Windows.Forms.CheckBox();
             this.showCurrentProgressAsTooltip = new System.Windows.Forms.CheckBox();
             this.settingShowWarning = new System.Windows.Forms.CheckBox();
             this.startAutoBox = new System.Windows.Forms.CheckBox();
@@ -138,7 +138,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.checkBox4);
+            this.groupBox2.Controls.Add(this.showWindowOnChanges);
             this.groupBox2.Controls.Add(this.showCurrentProgressAsTooltip);
             this.groupBox2.Controls.Add(this.settingShowWarning);
             this.groupBox2.Controls.Add(this.startAutoBox);
@@ -149,15 +149,16 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Settings";
             // 
-            // checkBox4
+            // showWindowOnChanges
             // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(9, 89);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(66, 17);
-            this.checkBox4.TabIndex = 3;
-            this.checkBox4.Text = "<empty>";
-            this.checkBox4.UseVisualStyleBackColor = true;
+            this.showWindowOnChanges.AutoSize = true;
+            this.showWindowOnChanges.Location = new System.Drawing.Point(9, 89);
+            this.showWindowOnChanges.Name = "showWindowOnChanges";
+            this.showWindowOnChanges.Size = new System.Drawing.Size(282, 17);
+            this.showWindowOnChanges.TabIndex = 3;
+            this.showWindowOnChanges.Text = "Show popup window when changes have been found";
+            this.showWindowOnChanges.UseVisualStyleBackColor = true;
+            this.showWindowOnChanges.CheckedChanged += new System.EventHandler(this.showWindowOnChanges_CheckedChanged);
             // 
             // showCurrentProgressAsTooltip
             // 
@@ -226,7 +227,7 @@
         private System.Windows.Forms.Button cancelBtn;
         private System.Windows.Forms.Button saveBtn;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.CheckBox checkBox4;
+        private System.Windows.Forms.CheckBox showWindowOnChanges;
         private System.Windows.Forms.CheckBox showCurrentProgressAsTooltip;
         private System.Windows.Forms.CheckBox settingShowWarning;
         private System.Windows.Forms.CheckBox startAutoBox;

@@ -26,6 +26,7 @@ namespace az.Synchronizer
 
         public static bool ShowSizeWarning = false;
         public static bool ShowCurrentStatusProgressWindow = false;
+        public static bool ShowWindowOnChanges = false;
 
         /// <summary>
         /// Reads the Config File and returns the lines separated in a dictionary.
