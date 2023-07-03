@@ -189,6 +189,7 @@ namespace az.Synchronizer
             if (showWindowOnChanges.Checked)
             {
                 Functions.ShowWindowOnChanges = true;
+                //TODO Add Code that runs when true.
             }
             else
             {
