@@ -57,7 +57,7 @@
             this.groupBox1.Controls.Add(this.sourceBtn);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(375, 103);
+            this.groupBox1.Size = new System.Drawing.Size(565, 103);
             this.groupBox1.TabIndex = 14;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Configuration File";
@@ -82,7 +82,7 @@
             // 
             // targetBtn
             // 
-            this.targetBtn.Location = new System.Drawing.Point(321, 56);
+            this.targetBtn.Location = new System.Drawing.Point(524, 56);
             this.targetBtn.Name = "targetBtn";
             this.targetBtn.Size = new System.Drawing.Size(35, 20);
             this.targetBtn.TabIndex = 20;
@@ -95,7 +95,7 @@
             this.srcTxtBox.Location = new System.Drawing.Point(52, 22);
             this.srcTxtBox.Name = "srcTxtBox";
             this.srcTxtBox.ReadOnly = true;
-            this.srcTxtBox.Size = new System.Drawing.Size(263, 20);
+            this.srcTxtBox.Size = new System.Drawing.Size(466, 20);
             this.srcTxtBox.TabIndex = 17;
             // 
             // targetTxtBox
@@ -103,12 +103,12 @@
             this.targetTxtBox.Location = new System.Drawing.Point(52, 56);
             this.targetTxtBox.Name = "targetTxtBox";
             this.targetTxtBox.ReadOnly = true;
-            this.targetTxtBox.Size = new System.Drawing.Size(263, 20);
+            this.targetTxtBox.Size = new System.Drawing.Size(466, 20);
             this.targetTxtBox.TabIndex = 19;
             // 
             // sourceBtn
             // 
-            this.sourceBtn.Location = new System.Drawing.Point(321, 22);
+            this.sourceBtn.Location = new System.Drawing.Point(524, 22);
             this.sourceBtn.Name = "sourceBtn";
             this.sourceBtn.Size = new System.Drawing.Size(35, 20);
             this.sourceBtn.TabIndex = 18;
@@ -118,7 +118,7 @@
             // 
             // cancelBtn
             // 
-            this.cancelBtn.Location = new System.Drawing.Point(312, 277);
+            this.cancelBtn.Location = new System.Drawing.Point(502, 277);
             this.cancelBtn.Name = "cancelBtn";
             this.cancelBtn.Size = new System.Drawing.Size(75, 23);
             this.cancelBtn.TabIndex = 22;
@@ -128,7 +128,7 @@
             // 
             // saveBtn
             // 
-            this.saveBtn.Location = new System.Drawing.Point(225, 278);
+            this.saveBtn.Location = new System.Drawing.Point(415, 278);
             this.saveBtn.Name = "saveBtn";
             this.saveBtn.Size = new System.Drawing.Size(81, 22);
             this.saveBtn.TabIndex = 21;
@@ -144,7 +144,7 @@
             this.groupBox2.Controls.Add(this.startAutoBox);
             this.groupBox2.Location = new System.Drawing.Point(12, 121);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(375, 150);
+            this.groupBox2.Size = new System.Drawing.Size(565, 150);
             this.groupBox2.TabIndex = 23;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Settings";
@@ -196,7 +196,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(401, 312);
+            this.ClientSize = new System.Drawing.Size(589, 312);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.cancelBtn);
             this.Controls.Add(this.groupBox1);
