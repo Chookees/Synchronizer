@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
+using System.Threading;
+using System.Windows.Forms;
 using Log = AZLog.Logger;
 using Type = AZLog.Type;
 
@@ -27,6 +29,35 @@ namespace az.Synchronizer
         public static bool ShowSizeWarning = false;
         public static bool ShowCurrentStatusProgressWindow = false;
         public static bool ShowWindowOnChanges = false;
+        public static bool AutoStartBackupOnChange = false;
+        public static bool TargetDriveIsExternal = false;
+
+        public static void WaitForExternalDrive()
+        {
+            bool externalConnected = false;
+            Functions.ConfigurationDictionary.TryGetValue("trgt", out string trgt);
+            Functions.ConfigurationDictionary.TryGetValue("src", out string src);
+            while (!externalConnected)
+            {
+                DriveInfo[] drives = DriveInfo.GetDrives();
+                foreach (DriveInfo drive in drives)
+                {
+                    Thread.Sleep(50);
+                    if (drive.DriveType == DriveType.Removable)
+                    {
+                        if (trgt.Contains(drive.Name) || src.Contains(drive.Name))
+                        {
+                            externalConnected = true;
+                            TargetDriveIsExternal = true;
+                            MessageBox.Show(drive.Name + drive.VolumeLabel + " is ready for backup.");
+                        }
+                    }
+                }
+
+                drives = null;
+                Thread.Sleep(500);
+            }
+        }
 
         /// <summary>
         /// Reads the Config File and returns the lines separated in a dictionary.

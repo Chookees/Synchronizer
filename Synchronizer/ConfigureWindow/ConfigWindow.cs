@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading;
 using System.Windows.Forms;
 using AZLog;
 using Microsoft.Win32;
@@ -55,6 +56,16 @@ namespace az.Synchronizer
                 {
                     this.showCurrentProgressAsTooltip.Checked = Convert.ToBoolean(value);
                     Logger.Log(this.Name + ".ConfigWindow", "Adding " + Convert.ToBoolean(value) + " To showCurrentStatusInBalloonTip.", Type.Saving);
+                }
+                else if (key == "showWindowOnChanges")
+                {
+                    this.showWindowOnChanges.Checked = Convert.ToBoolean(value);
+                    Logger.Log(this.Name + ".ConfigWindow", "Adding " + Convert.ToBoolean(value) + " To showWindowOnChanges.", Type.Saving);
+                }
+                else if (key == "popUpWhenExternalConnected")
+                {
+                    this.popUpWhenExternalConnected.Checked = Convert.ToBoolean(value);
+                    Logger.Log(this.Name + ".ConfigWindow", "Adding " + Convert.ToBoolean(value) + " To popUpWhenExternalConnected.", Type.Saving);
                 }
             }
 
@@ -118,7 +129,8 @@ namespace az.Synchronizer
             writerSetting.WriteLine("startWithWindows=" + startAutoBox.Checked.ToString()+";");
             writerSetting.WriteLine("settingShowWarning=" + settingShowWarning.Checked.ToString()+";");
             writerSetting.WriteLine("showCurrentStatusInBalloonTip=" + showCurrentProgressAsTooltip.Checked.ToString()+";");
-            //writerSetting.WriteLine("startWithWindows=" + startAutoBox.Checked.ToString()+";");
+            writerSetting.WriteLine("showWindowOnChanges=" + showWindowOnChanges.Checked.ToString() + ";");
+            writerSetting.WriteLine("popUpWhenExternalConnected=" + popUpWhenExternalConnected.Checked.ToString() + ";");
             Logger.Log(this.Name + ".saveBtn_Click", "Saving Setting File.", Type.Saving);
             writerSetting.Flush();
             Logger.Log(this.Name + ".saveBtn_Click", "Closing Setting File.", Type.Closing);
@@ -186,17 +198,29 @@ namespace az.Synchronizer
 
         private void showWindowOnChanges_CheckedChanged(object sender, EventArgs e)
         {
-            if (showWindowOnChanges.Checked)
+            Functions.ShowWindowOnChanges = showWindowOnChanges.Checked;
+            if (Functions.ShowWindowOnChanges)
             {
-                Functions.ShowWindowOnChanges = true;
                 //TODO Add Code that runs when true.
             }
-            else
+
+            Logger.Log(this.Name + ".showCurrentProgressAsTooltip_CheckedChanged", "Show popup window on changes: " + showWindowOnChanges.Checked + ".", Type.Saving);
+        }
+
+        private void popUpWhenExternalConnected_CheckedChanged(object sender, EventArgs e)
+        {
+            Functions.AutoStartBackupOnChange = popUpWhenExternalConnected.Checked;
+
+            if (Functions.AutoStartBackupOnChange)
             {
-                Functions.ShowWindowOnChanges = false;
+                Thread externalDriveThread = new Thread(Functions.WaitForExternalDrive)
+                {
+                    Name = "WaitForExternalDriveThread"
+                };
+                externalDriveThread.Start();
             }
 
-            Logger.Log(this.Name + ".showCurrentProgressAsTooltip_CheckedChanged", "Show current progress of backup as tooltip: " + showWindowOnChanges.Checked + ".", Type.Saving);
+            Logger.Log(this.Name + ".popUpWhenExternalConnected_CheckedChanged", "Show popup when external is connected: " + popUpWhenExternalConnected.Checked + ".", Type.Saving);
         }
     }
 }
