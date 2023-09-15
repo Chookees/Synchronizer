@@ -1,5 +1,6 @@
 # Synchronizer
 A Backup tool with many functions.
+This Project has to be postponed because of personals reasons.
 ## Topics
 ### 1) Roadmap
 ### 2) Version history
@@ -10,32 +11,32 @@ A Backup tool with many functions.
 - Q3 = Jul-Sep
 - Q4 = Oct-Dec
 
-### 🔜 V1.0.0.0 -> Q4 2024
+### 🔜 V1.0.0.0 -> TBA
 - First full release 🥳
 - Best way found and implemented of showing progress to the user
 - To be announced
 
-### 🔃 V0.6.9.0 -> Q3 2024
+### 🔃 V0.6.9.0 -> TBA
 - Pre release testing phase
   - Testing on big data
   - Testing on small but many files
   - Testing on Network drives
   - Much more testing...
 
-### 🔜 V0.6.0.0 -> Q3 2024
+### 🔜 V0.6.0.0 -> TBA
 - Mutlithreading backups
 - More to be announced
 
-### 🔜 V0.5.0.0 -> Q2 2024
+### 🔜 V0.5.0.0 -> TBA
 - Backup to .zip option
 - Code optimization for faster backups
 - More to be announced
 
-### 🔜 V0.4.0.0 -> Q1 2024
+### 🔜 V0.4.0.0 -> TBA
 - Support of Network drives
 - Settings Presets
 
-### 🔜 V0.3.0.0 -> Q4 2023
+### 🔜 V0.3.0.0 -> TBA
 - More settings available in the Configuration Window
   - Notification when destination path is connected (external drive)
   - Auto start backup when a difference between set locations has been found.
