@@ -1,3 +1,5 @@
+# Project on hold
+
 # Synchronizer
 A Backup tool with many functions.
 This Project has to be postponed because of personals reasons.
